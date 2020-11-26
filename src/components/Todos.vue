@@ -31,18 +31,23 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Todos",
   methods: {
-    ...mapActions(["fetchTodos", "deleteTodo", "updateTodo"]),
+    ...mapActions({ 
+      fetchTodos: "fetchTodos",
+      deleteTodo: "deleteTodo",
+      updateTodo: "updateTodo"
+    }),
     ondblClick(todo) {
       const updTodo = {
         id: todo.id,
         title: todo.title,
         completed: !todo.completed
       };
-
       this.updateTodo(updTodo);
     }
   },
-  computed: mapGetters(["allTodos"]),
+  computed: {
+    ...mapGetters({ allTodos: "allTodos" })
+  },
   created() {
     this.fetchTodos();
   }
